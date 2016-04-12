@@ -1,6 +1,10 @@
 defimpl Ecto.DataType, for: Timex.DateTime do
   use Timex
 
+  def dump(value) do
+    cast(value, :datetime)
+  end
+
   def cast(%DateTime{} = datetime, type) when type in [:date, Timex.Ecto.Date] do
     Timex.Ecto.Date.dump(datetime)
   end
@@ -22,6 +26,10 @@ end
 
 defimpl Ecto.DataType, for: Timex.Date do
   use Timex
+  
+  def dump(value) do
+    cast(value, :date)
+  end
 
   def cast(%Date{} = date, type) when type in [:date, Timex.Ecto.Date] do
     Timex.Ecto.Date.dump(date)
